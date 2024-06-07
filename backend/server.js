@@ -6,6 +6,10 @@ const dbConnect = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 
 const port = 8000;
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+};
 
 //Configs
 dotenv.config();
@@ -14,13 +18,7 @@ dbConnect();
 const app = express();
 
 //MiddleWares
-app.use(
-  cors({
-    origin: "http://localhost:5173/",
-    credentials: true,
-  })
-);
-
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
