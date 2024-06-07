@@ -1,5 +1,10 @@
 const express = require("express");
 const cors = require("cors");
+const dotenv = require("dotenv");
+const dbConnect = require("./config/db");
+
+dotenv.config();
+dbConnect();
 
 const app = express();
 const port = 8000;
