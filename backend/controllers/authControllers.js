@@ -1,10 +1,11 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
-const generateToken = require("../utils/tokenGenerator");
+const { generateToken } = require("../utils/tokenGenerator");
 
 async function registerUser(req, res) {
   const { name, email, password } = req.body;
-  if (name || email || password) {
+  console.log(name + " " + email + " " + password);
+  if (!name || !email || !password) {
     return res.status(400).json({ Error: "Enter details in all field" });
   }
   try {
@@ -17,7 +18,7 @@ async function registerUser(req, res) {
     // const token = generateToken(user._id);
     // res.cookie("token", token, { httpOnly: true });
 
-    res.status(201).json({ message: "User registered successfully", token });
+    res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ Error: "Server error" });
@@ -26,7 +27,7 @@ async function registerUser(req, res) {
 
 async function loginUser(req, res) {
   const { email, password } = req.body;
-  if (email || password) {
+  if (!email || !password) {
     return res.status(400).json({ Error: "Please provide email and password" });
   }
   try {

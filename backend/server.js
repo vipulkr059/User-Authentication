@@ -3,7 +3,9 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const dbConnect = require("./config/db");
-const port = process.env.PORT;
+const authRoutes = require("./routes/authRoutes");
+
+const port = 8000;
 
 //Configs
 dotenv.config();
@@ -23,7 +25,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 //Routes
-app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/auth", authRoutes);
 
 app.listen(port, () => {
   console.log(`server started at ${port}`);
