@@ -1,7 +1,10 @@
+import Signin from "./components/Signin";
+import Signup from "./components/Signup";
+
 function App() {
   return (
     <>
-      <h1>Vite + React</h1>
+      <Signin />
     </>
   );
 }
