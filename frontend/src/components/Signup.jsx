@@ -1,41 +1,67 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import DOMPurify from "dompurify";
 import { AuthContext } from "../context/authContext";
 
 const Signup = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { register } = useContext(AuthContext);
+  const { register: signup } = useContext(AuthContext);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await register(name, email, password);
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("Email is required"),
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const onSubmit = async (data) => {
+    const sanitizedData = {
+      name: DOMPurify.sanitize(data.name),
+      email: DOMPurify.sanitize(data.email),
+      password: DOMPurify.sanitize(data.password),
+    };
+    await signup(
+      sanitizedData.name,
+      sanitizedData.email,
+      sanitizedData.password
+    );
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Name"
-        required
-      />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
-      <button type="submit">Register</button>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <input type="text" placeholder="Name" {...register("name")} />
+        {errors.name && <p>{errors.name.message}</p>}
+      </div>
+      <div>
+        <input type="email" placeholder="Email" {...register("email")} />
+        {errors.email && <p>{errors.email.message}</p>}
+      </div>
+      <div>
+        <input
+          type="password"
+          placeholder="Password"
+          {...register("password")}
+        />
+        {errors.password && <p>{errors.password.message}</p>}
+      </div>
+      <div>
+        <button type="submit" disabled={isSubmitting}>
+          Signup
+        </button>
+      </div>
     </form>
   );
 };
