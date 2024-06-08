@@ -55,10 +55,10 @@ const SignupForm = () => {
             placeholder="First Name"
             {...register("firstName")}
             className={`w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500 ${
-              errors.name ? "border-red-500" : "border-gray-300"
+              errors.firstName ? "border-red-500" : "border-gray-300"
             }`}
           />
-          {errors.name && (
+          {errors.firstName && (
             <p className="text-red-500 mt-2">{errors.firstName.message}</p>
           )}
         </div>
@@ -68,10 +68,10 @@ const SignupForm = () => {
             placeholder="Last Name"
             {...register("lastName")}
             className={`w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500 ${
-              errors.name ? "border-red-500" : "border-gray-300"
+              errors.lastName ? "border-red-500" : "border-gray-300"
             }`}
           />
-          {errors.name && (
+          {errors.lastName && (
             <p className="text-red-500 mt-2">{errors.lastName.message}</p>
           )}
         </div>

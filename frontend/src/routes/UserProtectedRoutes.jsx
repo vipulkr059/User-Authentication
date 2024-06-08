@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
@@ -7,12 +7,13 @@ const UserProtectedRoutes = ({ children }) => {
 
   // Load the authenticated user
   const { user } = useContext(AuthContext);
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, []);
 
-  if (!user) {
-    navigate("/login");
-  } else {
-    return children;
-  }
+  return children;
 };
 
 export default UserProtectedRoutes;
