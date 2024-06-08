@@ -17,9 +17,10 @@ export const AuthProvider = ({ children }) => {
     setUser(res.data.user);
   };
 
-  const register = async (name, email, password) => {
+  const signup = async (firstName, lastName, email, password) => {
     await axios.post("http://localhost:8000/api/auth/register", {
-      name,
+      firstName,
+      lastName,
       email,
       password,
     });
@@ -31,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
+    <AuthContext.Provider value={{ user, login, signup, logout }}>
       {children}
     </AuthContext.Provider>
   );
