@@ -38,6 +38,7 @@ async function loginUser(req, res) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
     const userInfo = {
+      id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
@@ -54,7 +55,7 @@ async function loginUser(req, res) {
 
 async function getUser(req, res) {
   try {
-    const user = await User.findById(req.user.firstName).select("-password");
+    const user = await User.findById(req.user.id).select("-password");
     res.json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
