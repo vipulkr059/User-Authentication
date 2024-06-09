@@ -7,8 +7,8 @@ import UserProtectedRoutes from "./routes/UserProtectedRoutes";
 const AppRouter = () => (
   <Router>
     <Routes>
-      <Route element={<UserProtectedRoutes />}>
-        <Route path="/profile" element={<Profile />} />
+      <Route path="/profile" element={<UserProtectedRoutes />}>
+        <Route path="" element={<Profile />} />
       </Route>
       <Route path="/" element={<Signin />} />
       <Route path="/login" element={<Signin />} />

@@ -4,16 +4,15 @@ import { AuthContext } from "../context/authContext";
 
 const UserProtectedRoutes = ({ children }) => {
   const navigate = useNavigate();
+  const { user, loading } = useContext(AuthContext);
 
-  // Load the authenticated user
-  const { user } = useContext(AuthContext);
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, []);
+  if (loading) return <div>Loading...</div>;
 
-  return children;
+  if (!user) {
+    navigate("/login");
+  } else {
+    return children;
+  }
 };
 
 export default UserProtectedRoutes;
