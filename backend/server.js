@@ -7,7 +7,7 @@ const authRoutes = require("./routes/authRoutes");
 
 const port = 8000;
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://user-authentication-3xm3.vercel.app/",
   credentials: true,
 };
 
