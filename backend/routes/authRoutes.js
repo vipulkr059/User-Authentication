@@ -1,5 +1,9 @@
 const express = require("express");
-const { registerUser, loginUser } = require("../controllers/authControllers");
+const {
+  registerUser,
+  loginUser,
+  getUser,
+} = require("../controllers/authControllers");
 const {
   registerValidation,
   loginValidation,
@@ -10,8 +14,6 @@ const router = express.Router();
 
 router.post("/register", registerValidation, validate, registerUser);
 router.post("/login", loginValidation, validate, loginUser);
-router.get("/user", authorization, (req, res) => {
-  res.json(req.user);
-});
+router.get("/user", authorization, getUser);
 
 module.exports = router;
