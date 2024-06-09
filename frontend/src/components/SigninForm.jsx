@@ -4,9 +4,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import DOMPurify from "dompurify";
 import { AuthContext } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 const SigninForm = () => {
   const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -31,6 +33,7 @@ const SigninForm = () => {
       password: DOMPurify.sanitize(data.password),
     };
     await login(sanitizedData.email, sanitizedData.password);
+    navigate("/profile");
   };
 
   return (

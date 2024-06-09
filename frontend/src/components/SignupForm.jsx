@@ -4,9 +4,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import DOMPurify from "dompurify";
 import { AuthContext } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
   const { signup } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("First Name is required"),
@@ -23,6 +25,7 @@ const SignupForm = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
@@ -40,6 +43,8 @@ const SignupForm = () => {
       sanitizedData.email,
       sanitizedData.password
     );
+    reset();
+    navigate("/");
   };
 
   return (

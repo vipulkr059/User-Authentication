@@ -52,4 +52,13 @@ async function loginUser(req, res) {
   }
 }
 
-module.exports = { loginUser, registerUser };
+async function getUser(req, res) {
+  try {
+    const user = await User.findById(req.user.firstName).select("-password");
+    res.json(user);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
+module.exports = { loginUser, registerUser, getUser };
