@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import DOMPurify from "dompurify";
 import { AuthContext } from "../context/authContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
   const { signup } = useContext(AuthContext);
@@ -48,10 +48,10 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-200">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
+        className="bg-white p-6 rounded-3xl shadow-lg w-full max-w-md"
       >
         <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
         <div className="mb-4">
@@ -106,14 +106,25 @@ const SignupForm = () => {
             <p className="text-red-500 mt-2">{errors.password.message}</p>
           )}
         </div>
-        <div>
+        <div className="mb-3">
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600 disabled:bg-gray-400"
+            className="w-full p-3 bg-blue-500 text-white rounded-3xl hover:bg-blue-600 focus:outline-none focus:bg-blue-600 disabled:bg-gray-400"
           >
             Sign Up
           </button>
+        </div>
+        <div className="text-center">
+          <p className="text-sm text-gray-600">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="font-medium text-indigo-600 hover:text-indigo-500"
+            >
+              Sign in
+            </Link>
+          </p>
         </div>
       </form>
     </div>
