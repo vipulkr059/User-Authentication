@@ -7,7 +7,10 @@ const authRoutes = require("./routes/authRoutes");
 
 const port = 8000;
 const corsOptions = {
-  origin: "https://user-authentication-3xm3.vercel.app",
+  origin: [
+    "http://localhost:5173",
+    "https://user-authentication-3xm3.vercel.app",
+  ],
   credentials: true,
 };
 
@@ -23,6 +26,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 //Routes
+app.get("/", (req, res) => {
+  res.json("Hello Server");
+});
 app.use("/api/auth", authRoutes);
 
 app.listen(port, () => {
