@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://user-authentication-orpin.vercel.app/api",
+  baseURL: "https://user-authentication-1iup.onrender.com/api",
   withCredentials: true,
 });
 
